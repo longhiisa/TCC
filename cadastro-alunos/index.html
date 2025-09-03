@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Alunos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2><span class="highlight">SENAI</span></h2>
+    <ul>
+      <li class="active">Alunos</li>
+      <li>Professores</li>
+      <li>Turmas</li>
+      <li>Autenticação</li>
+      <li>Histórico</li>
+    </ul>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <h1>Cadastro de Alunos</h1>
+
+    <!-- Abas -->
+    <div class="tabs">
+      <button class="tab active" onclick="openTab('info')">Informações Gerais</button>
+      <button class="tab" onclick="openTab('dados')">Dados Pessoais</button>
+      <button class="tab" onclick="openTab('autenticacao')">Autenticação</button>
+      <button class="tab" onclick="openTab('historico')">Histórico</button>
+    </div>
+
+    <!-- Aba: Informações Gerais -->
+    <div id="info" class="tab-content active">
+      <form id="cadastroForm" class="student-form">
+        <!-- Campos da esquerda -->
+        <div class="form-fields">
+          <div class="form-row">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" />
+          </div>
+
+          <div class="form-row half">
+            <div>
+              <label for="matricula">Matrícula</label>
+              <input type="text" id="matricula" />
+            </div>
+            <div>
+              <label for="turma">Turma</label>
+              <input type="text" id="turma" />
+            </div>
+          </div>
+
+          <div class="form-row half">
+            <div>
+              <label for="nascimento">Data de nascimento</label>
+              <input type="date" id="nascimento" />
+            </div>
+            <div>
+              <label for="responsavel">Nome do responsável</label>
+              <input type="text" id="responsavel" />
+            </div>
+          </div>
+
+          <div class="form-row half">
+            <div>
+              <label>Autenticação</label>
+              <input type="text" placeholder="Cartão RFID" />
+            </div>
+            <div>
+              <label>Reconhecimento Facial</label>
+              <div class="facial-recognition">
+                <input type="text" placeholder="Reconhecimento" />
+                <button type="button" class="capture-btn">
+                  📷 Capturar Foto
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Área da foto -->
+        <div class="photo-section">
+          <div class="photo-placeholder"></div>
+          <button type="button" class="camera-btn">
+            <img src="https://img.icons8.com/ios-filled/20/d91e36/camera.png" alt="Camera">
+          </button>
+        </div>
+      </form>
+
+      <!-- Botões finais -->
+      <div class="form-actions">
+        <button type="submit" class="btn-save">Salvar</button>
+        <button type="reset" class="btn-cancel">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- Outras abas -->
+    <div id="dados" class="tab-content">Conteúdo de Dados Pessoais</div>
+    <div id="autenticacao" class="tab-content">Conteúdo de Autenticação</div>
+    <div id="historico" class="tab-content">Conteúdo de Histórico</div>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
