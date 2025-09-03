@@ -1,0 +1,203 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: linear-gradient(135deg, #7a222c 0%, #9e2f36 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container-login {
+  width: 1500px;
+  height: 700px;
+  background-color: #fff;
+  border-radius: 32px;
+  display: flex;
+  overflow: hidden;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    0 20px 50px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.container-login:hover {
+  transform: scale(1.03);
+}
+
+/* Logo SENAI */
+.logo-senai {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.25));
+}
+
+/* Painel esquerdo */
+.left-panel {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  text-align: center;
+  background: linear-gradient(135deg, #7b2430 0%, #a23a43 100%);
+  box-shadow: inset -5px 0 25px rgba(0,0,0,0.22);
+  font-weight: 700;
+  border-top-left-radius: 32px;
+  border-bottom-left-radius: 32px;
+  letter-spacing: 1.1px;
+  user-select: none;
+}
+
+.left-panel h1 {
+  font-size: 3.3rem;
+  margin-bottom: 28px;
+  line-height: 1.1;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.45);
+}
+
+.left-panel p {
+  font-weight: 500;
+  font-size: 1.15rem;
+  opacity: 0.85;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Painel direito */
+.right-panel {
+  flex: 1;
+  background-color: #fafafa;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+  box-shadow: inset 5px 0 25px rgba(0,0,0,0.07);
+  position: relative;
+}
+
+/* Formulários */
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input,
+.register-form input {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #f7f7f7;
+  color: #444;
+  box-shadow: inset 1.5px 1.5px 6px rgba(0,0,0,0.04);
+  outline-offset: 2px;
+}
+
+.login-form input::placeholder,
+.register-form input::placeholder {
+  color: #aaa;
+  font-weight: 400;
+}
+
+.login-form input:focus,
+.register-form input:focus {
+  outline: none;
+  border-color: #bf2e33;
+  box-shadow: 0 0 12px rgba(191, 46, 51, 0.65);
+  background-color: #fff;
+}
+
+/* Botão principal */
+.btn-primary {
+  background-color: #bf2e33;
+  color: white;
+  padding: 16px 0;
+  border: none;
+  border-radius: 36px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  cursor: pointer;
+  letter-spacing: 1.6px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 18px rgba(191, 46, 51, 0.55);
+  user-select: none;
+}
+
+.btn-primary:hover {
+  background-color: #a22729;
+  box-shadow: 0 10px 24px rgba(162, 39, 41, 0.85);
+  transform: translateY(-3px);
+}
+
+/* Texto para alternar entre telas */
+.switch-text {
+  margin-top: 26px;
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+.switch-text a {
+  color: #bf2e33;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.switch-text a:hover {
+  color: #a22729;
+  text-decoration: underline;
+}
+
+/* Responsividade simples */
+@media (max-width: 768px) {
+  .container-login {
+    flex-direction: column;
+    width: 90vw;
+    height: auto;
+  }
+
+  .left-panel,
+  .right-panel {
+    border-radius: 0;
+    padding: 40px 25px;
+  }
+
+  .left-panel {
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+  }
+
+  .right-panel {
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+  }
+
+  .logo-senai {
+    position: static;
+    width: 110px;
+    margin-bottom: 15px;
+  }
+}
