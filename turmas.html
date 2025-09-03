@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Alunos</title>
+  <link rel="stylesheet" href="cadastro.css">
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>Cadastros</h2>
+    <ul>
+    <a class="goku" href="cadastro.html"> <li>Alunos</li>
+     <a class="goku" href="cadastroprof.html"> <li>Funcionários</li></a>
+     <a class="goku" href="turmas.html"> <li class="active">Turmas</li></a>
+     <a class="goku" href="autenticacao.html"> <li>Autenticação</li></a>
+     <a class="goku" href="historico.html"> <li>Histórico</li></a>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="form-container">
+      <h1>Turmas</h1>
+  
+      <!-- Lista de turmas -->
+      <div class="turmas-list">
+        <button class="turma-btn" data-turma="1A">Turma 1A</button>
+        <button class="turma-btn" data-turma="2B">Turma 2B</button>
+        <button class="turma-btn" data-turma="3C">Turma 3C</button>
+      </div>
+  
+      <!-- Detalhes da turma selecionada -->
+      <div class="turma-detalhes" id="detalhesTurma" style="display: none;">
+        <h2 id="nomeTurma">Turma</h2>
+  
+        <div class="lista-grupo">
+          <div>
+            <h3>Alunos</h3>
+            <ul id="listaAlunos">
+              <!-- Alunos serão inseridos via JS -->
+            </ul>
+          </div>
+  
+          <div>
+            <h3>Professores</h3>
+            <ul id="listaProfessores">
+              <!-- Professores serão inseridos via JS -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
