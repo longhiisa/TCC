@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home - Controle Escolar Digital</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="home.css" />
 </head>
 <body>
@@ -11,48 +12,66 @@
   <aside class="sidebar">
     <h2 class="logo">SENAI</h2>
     <nav class="menu">
-    <a href="./home.html">Home</a>
-      <a href="cadastro-alunos/html/cadastro-alunos.html">Cadastro de  alunos</a>
+      <a href="./home.html">Home</a>
+      <a href="cadastro-alunos/cadastro-alunos.html">Cadastro de alunos</a>
       <a href="professores.html">Professores</a>
       <a href="turmas.html">Turmas</a>
-      <a href="./cadastro-alunos/historico.html" class="active">Histórico</a>
+      <a href="./cadastro-alunos/historico.html">Histórico</a>
     </nav>
   </aside>
 
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="content">
     <!-- BANNER -->
- <div class="banner-container">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/SENAI_S%C3%A3o_Paulo_logo.png" alt="Banner SENAI">
-</div>
+    <div class="banner-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/SENAI_S%C3%A3o_Paulo_logo.png" alt="Banner SENAI">
+    </div>
 
-<section class="titulo-principal">
-  <h1>Controle Escolar Digital - SENAI</h1>
-  <p>Administração eficiente de alunos, professores, turmas e históricos</p>
-</section>
+    <section class="titulo-principal">
+      <h1>Controle Escolar Digital - SENAI</h1>
+      <p>Administração eficiente de alunos, professores, turmas e históricos</p>
+    </section>
 
-<section class="cards">
-  <a href="alunos.html" class="card">
-    <h3>Alunos</h3>
-    <p>250 cadastrados</p>
-  </a>
-  <a href="professores.html" class="card">
-    <h3>Professores</h3>
-    <p>18 cadastrados</p>
-  </a>
-  <a href="turmas.html" class="card">
-    <h3>Turmas</h3>
-    <p>12 ativas</p>
-  </a>
-  <a href="./cadastro-alunos/historico.html" class="card">
-    <h3>Histórico</h3>
-    <p>Última atualização hoje</p>
-  </a>
-</section>
+    <section class="cards">
+      <a href="alunos.html" class="card">
+        <h3>Alunos</h3>
+        <p>250 cadastrados</p>
+      </a>
+      <a href="professores.html" class="card">
+        <h3>Professores</h3>
+        <p>18 cadastrados</p>
+      </a>
+      <a href="turmas.html" class="card">
+        <h3>Turmas</h3>
+        <p>12 ativas</p>
+      </a>
+      <a href="./cadastro-alunos/historico.html" class="card">
+        <h3>Histórico</h3>
+        <p>Última atualização hoje</p>
+      </a>
+    </section>
 
-<div class="info-box">
-  <h2>Informações da Equipe</h2>
-  <p><strong>Diretor:</strong> Ronaldo Sotrate</p>
-  <p><strong>Coordenadores Pedagógicos:</strong> Ana Carolina e Manoel</p>
-  <p><strong>Analista de Qualidade de Vida:</strong> Margarete</p>
-</div>
+    <div class="info-box">
+      <h2>Informações da Equipe</h2>
+      <p><strong>Diretor:</strong> Ronaldo Sotrate</p>
+      <p><strong>Coordenadores Pedagógicos:</strong> Ana Carolina e Manoel</p>
+      <p><strong>Analista de Qualidade de Vida:</strong> Margarete</p>
+    </div>
+  </main>
+
+  <!-- SCRIPT PARA DESTACAR MENU ATIVO -->
+  <script>
+    const links = document.querySelectorAll('.sidebar a');
+    const currentPath = window.location.pathname;
+
+    links.forEach(link => {
+      const linkPath = new URL(link.href).pathname;
+
+      // Verifica se o caminho atual termina com o caminho do link
+      if (currentPath.endsWith(linkPath)) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -6,186 +6,221 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to bottom right, #4c1120, #7e2b35); /* Fundo igual ao da imagem */
-  color: #333;
+  font-family: "Poppins", sans-serif;
   display: flex;
   min-height: 100vh;
+  background: linear-gradient(135deg, #5b0e2d, #7b2430);
+  color: #333;
+  overflow-x: hidden;
 }
 
-.container {
-  display: flex;
-  width: 100%;
-}
-
-/* SIDEBAR */
+/* MENU LATERAL */
 .sidebar {
-  width: 220px;
-  background-color: transparent;
-  padding: 40px 20px;
+  width: 240px;
+  background: linear-gradient(180deg, #5b0e2d, #7b2430);
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: flex-start;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  height: 100vh;
+  z-index: 10;
   color: #fff;
-  user-select: none;
-  box-shadow: inset -5px 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h2 {
+  font-size: 1.8rem;
   font-weight: 900;
-  font-size: 1.6rem;
   margin-bottom: 40px;
-  color: #ffffff;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
 }
 
 .sidebar a {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
-  padding: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: background 0.3s ease;
   display: block;
-  border-radius: 6px;
-  transition: background-color 0.3s;
 }
 
 .sidebar a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar a.active {
-  background-color: rgba(255, 255, 255, 0.25); /* Item ativo (Histórico, no seu exemplo) */
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* CONTEÚDO PRINCIPAL */
 .content {
-  flex-grow: 1;
-  padding: 30px 60px;
-  margin: 25px auto;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  max-width: 1550px;
-  width: 100%;
+  width: 1500px;
+  margin-left: 260px;
+  flex: 1;
+  padding: 40px 60px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #5b0e2d, #7b2430);
 }
 
-/* TÍTULO */
-.content h2 {
+/* CARD */
+.card {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 1200px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border: 2px solid #e3e3e3;
+
+  max-height: 900px; /* altura máxima do container */
+  overflow-y: auto; /* barra de rolagem vertical automática */
+}
+
+/* TÍTULO DO CARD */
+.card h2 {
+  color: #7b2430;
+  font-size: 2rem;
   font-weight: 700;
-  font-size: 1.8rem;
   margin-bottom: 30px;
-  color: #222;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
 /* ABAS */
 .tabs {
   display: flex;
-  gap: 30px;
-  border-bottom: 2px solid #eee;
+  justify-content: center;
+  gap: 25px;
   margin-bottom: 30px;
 }
 
 .tabs a {
   text-decoration: none;
-  padding: 8px 0;
-  font-size: 1rem;
+  color: #7b2430;
   font-weight: 600;
-  cursor: pointer;
-  color: #555;
-  border-bottom: 3px solid transparent;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: #f0f0f0;
+  transition: background 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+}
+
+.tabs a:hover {
+  background: #c92c37;
+  color: #fff;
 }
 
 .tabs a.active {
-  color: #c92c37;
-  border-bottom-color: #c92c37;
+  background: #7b2430;
+  color: #fff;
 }
 
 /* TABELA */
 .table-container {
   overflow-x: auto;
-  margin-bottom: 30px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  min-width: 700px;
 }
 
-thead th {
-  background-color: #f5f5f5;
+thead {
+  background: #7b2430;
+  color: #fff;
+}
+
+th, td {
+  padding: 14px 18px;
   text-align: left;
-  padding: 12px 15px;
-  font-weight: 600;
-  color: #333;
-  border-bottom: 2px solid #ddd;
-}
-
-tbody td {
-  padding: 12px 15px;
   border-bottom: 1px solid #ddd;
-  color: #444;
 }
 
 tbody tr:hover {
-  background-color: #f9f9f9;
+  background-color: #f9e6e6;
 }
 
 /* BOTÕES */
 .buttons {
+  margin-top: 30px;
   display: flex;
-  justify-content: flex-end;
-  gap: 15px;
+  justify-content: center;
+  gap: 20px;
 }
 
 button {
-  font-size: 1rem;
-  padding: 10px 25px;
-  border-radius: 6px;
-  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  border: none;
+  transition: background 0.3s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
-/* BOTÃO EXPORTAR */
 button.save {
-  background-color: #c92c37;
+  background-color: #7b2430;
   color: #fff;
-  border: none;
-  box-shadow: 0 3px 6px rgba(201, 44, 55, 0.6);
 }
 
 button.save:hover {
-  background-color: #a82a2f;
-  box-shadow: 0 5px 12px rgba(168, 42, 47, 0.7);
+  background-color: #a63939;
 }
 
-/* BOTÃO VOLTAR */
 button.cancel {
-  background-color: transparent;
-  color: #c92c37;
-  border: 2px solid #c92c37;
+  background-color: #e3e3e3;
+  color: #7b2430;
 }
 
 button.cancel:hover {
-  background-color: #c92c37;
-  color: #fff;
+  background-color: #c2c2c2;
 }
 
 /* RESPONSIVO */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .content {
-    padding: 30px 20px;
-    margin: 20px;
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
   }
-}
 
-.table-container {
-  max-height: 600px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 15px 10px;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  table {
+    font-size: 0.9rem;
+    min-width: unset;
+  }
+
+  th, td {
+    padding: 10px 12px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
 }

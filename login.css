@@ -3,19 +3,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body, html {
   height: 100%;
-  background: linear-gradient(135deg, #800020 0%, #950e2d 100%);
+  background: linear-gradient(135deg, #5b0e2d, #7b2430);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
 }
 
-/* CONTAINER PRINCIPAL */
 .container-login {
   width: 1500px;
   height: 700px;
@@ -29,12 +28,11 @@ body, html {
   transition: transform 0.3s ease;
   position: relative;
 }
-
 .container-login:hover {
   transform: scale(1.03);
 }
 
-/* LOGO SENAI */
+/* Logo SENAI */
 .logo-senai {
   position: absolute;
   top: 24px;
@@ -44,10 +42,10 @@ body, html {
   filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.25));
 }
 
-/* PAINEL ESQUERDO */
+/* Painel esquerdo */
 .left-panel {
   flex: 1;
-  color: #fff;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,7 +77,7 @@ body, html {
   text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
-/* PAINEL DIREITO */
+/* Painel direito */
 .right-panel {
   flex: 1;
   background-color: #fafafa;
@@ -93,45 +91,42 @@ body, html {
   position: relative;
 }
 
-/* FORMULÁRIOS */
-.login-form,
-.register-form {
+/* Formulários */
+.login-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form input,
-.register-form input {
+.login-form input {
   width: 100%;
   padding: 16px 20px;
   margin-bottom: 22px;
   border: 2px solid #ddd;
   border-radius: 16px;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   background-color: #f7f7f7;
   color: #444;
   box-shadow: inset 1.5px 1.5px 6px rgba(0,0,0,0.04);
+  outline-offset: 2px;
 }
 
-.login-form input::placeholder,
-.register-form input::placeholder {
+.login-form input::placeholder {
   color: #aaa;
   font-weight: 400;
 }
 
-.login-form input:focus,
-.register-form input:focus {
+.login-form input:focus {
   outline: none;
-  border-color: #950e2d;
-  box-shadow: 0 0 12px rgba(149,14,45,0.65);
+  border-color: #bf2e33;
+  box-shadow: 0 0 12px rgba(191, 46, 51, 0.65);
   background-color: #fff;
 }
 
-/* BOTÃO PRINCIPAL */
+/* Botão principal */
 .btn-primary {
-  background-color: #950e2d;
+  background-color: #bf2e33;
   color: white;
   padding: 16px 0;
   border: none;
@@ -140,17 +135,18 @@ body, html {
   font-size: 1.3rem;
   cursor: pointer;
   letter-spacing: 1.6px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 8px 18px rgba(149,14,45,0.55);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 8px 18px rgba(191, 46, 51, 0.55);
+  user-select: none;
 }
 
 .btn-primary:hover {
-  background-color: #800020;
-  box-shadow: 0 10px 24px rgba(128,0,32,0.85);
+  background-color: #a22729;
+  box-shadow: 0 10px 24px rgba(162, 39, 41, 0.85);
   transform: translateY(-3px);
 }
 
-/* SWITCH TEXT */
+/* Texto para alternar entre telas */
 .switch-text {
   margin-top: 26px;
   font-size: 1rem;
@@ -159,18 +155,18 @@ body, html {
 }
 
 .switch-text a {
-  color: #950e2d;
+  color: #bf2e33;
   font-weight: 700;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .switch-text a:hover {
-  color: #800020;
+  color: #a22729;
   text-decoration: underline;
 }
 
-/* RESPONSIVO */
+/* Responsividade simples */
 @media (max-width: 768px) {
   .container-login {
     flex-direction: column;
@@ -192,11 +188,5 @@ body, html {
   .right-panel {
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
-  }
-
-  .logo-senai {
-    position: static;
-    width: 110px;
-    margin-bottom: 15px;
   }
 }

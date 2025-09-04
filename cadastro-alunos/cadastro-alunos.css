@@ -1,0 +1,271 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #5b0e2d, #7b2430);
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* MENU LATERAL */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #5b0e2d, #7b2430);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  height: 100vh;
+  z-index: 10;
+  color: #fff;
+}
+
+.sidebar h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: background 0.3s ease;
+  display: block;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Conteúdo principal */
+.main-content {
+  flex-grow: 1;
+  background: #fff;
+  margin: 25px;
+  margin-left: 280px; /* espaço para não sobrepor a sidebar */
+  border-radius: 12px;
+  padding: 30px 60px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  max-width: 1500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content h1 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+/* Abas */
+.tabs {
+  display: flex;
+  gap: 30px;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 30px;
+}
+
+.tabs .tab {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #555;
+  border-bottom: 3px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.tabs .tab.active {
+  color: #7b2430;
+  border-bottom-color: #7b2430;
+}
+
+.tab-content {
+  display: none;
+  font-size: 1rem;
+  color: #444;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Formulário */
+.student-form {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row.half {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row.half > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #222;
+  user-select: none;
+}
+
+input[type="text"],
+input[type="date"] {
+  padding: 10px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+  border-color: #7b2430;
+  box-shadow: 0 0 5px rgba(123, 36, 48, 0.3);
+}
+
+/* Reconhecimento facial */
+.facial-recognition {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.facial-recognition input {
+  flex-grow: 1;
+}
+
+/* Botão Captura */
+.capture-btn {
+  background-color: #f3f3f3;
+  border: 1.5px solid #bbb;
+  padding: 8px 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #444;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.capture-btn:hover {
+  background-color: #7b2430;
+  color: #fff;
+  border-color: #5b0e2d;
+  transform: scale(1.05);
+}
+
+.capture-btn:active {
+  background-color: #5b0e2d;
+  transform: scale(0.97);
+}
+
+/* Foto */
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.photo-placeholder {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #f3f3f3;
+  border: 2px dashed #bbb;
+}
+
+.camera-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Ações do formulário */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-save {
+  background-color: #7b2430;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background-color: #5b0e2d;
+  transform: scale(1.05);
+}
+
+.btn-cancel {
+  background-color: #ddd;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background-color: #bbb;
+  transform: scale(1.05);
+}

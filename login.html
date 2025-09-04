@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login Admin</title>
-  <link rel="stylesheet" href="login.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin - SENAI</title>
+  <link rel="stylesheet" href="login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container-login">
-    <div class="left-panel login-left">
-      <h1>Admin Login</h1>
-      <p>Entre com suas credenciais para acessar o painel administrativo</p>
+
+    <div class="left-panel register-left">
+      <h2 class="logo-senai">SENAI</h2>  <!-- Aqui está a escrita SENAI -->
+      <h1>Bem-vindo de volta!</h1>
+      <p>Insira suas credenciais para acessar o painel administrativo</p>
     </div>
 
-    <div class="right-panel login-right">
+    <div class="right-panel">
       <form class="login-form">
-        <input type="text" placeholder="Nome de usuário" required />
+        <input type="email" placeholder="Email" required />
         <input type="password" placeholder="Senha" required />
         <button type="submit" class="btn-primary">Entrar</button>
       </form>
-      <p class="switch-text">
-        Não tem conta? <a href="register.html">Cadastre-se aqui</a>
-      </p>
+
+      <div class="switch-text">
+        Ainda não tem uma conta? <a href="register.html">Cadastre-se aqui</a>
+      </div>
     </div>
   </div>
 </body>
