@@ -22,7 +22,9 @@ class DatabaseSetup:
             cursor = connection.cursor()
             
             # Cria database se não existir
-            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {self.config.DATABASE}")
+            cursor.execute(
+                f"CREATE DATABASE IF NOT EXISTS {self.config.DATABASE}"
+                           )
             print(f"✅ Database '{self.config.DATABASE}' criado/verificado")
             
             cursor.close()
