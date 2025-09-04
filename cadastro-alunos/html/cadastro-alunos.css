@@ -6,17 +6,18 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #6f1a2c; /* vermelho vinho mais bonito */
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #5b0e2d, #7b2430);
   display: flex;
   min-height: 100vh;
   color: #333;
+  overflow-x: hidden;
 }
 
 /* Sidebar */
 .sidebar {
   width: 220px;
-  background-color: #7b2430;
+  background: linear-gradient(180deg, #5b0e2d, #7b2430);
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
@@ -24,6 +25,7 @@ body {
   color: #fff;
   user-select: none;
   box-shadow: inset -5px 0 8px rgba(0,0,0,0.1);
+  z-index: 10;
 }
 
 .sidebar h2 {
@@ -34,25 +36,24 @@ body {
   letter-spacing: 1.2px;
 }
 
-.sidebar ul {
+.sidebar-menu {
   list-style: none;
-  width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-.sidebar ul li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  font-size: 1rem;
+.sidebar-menu a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
   font-weight: 500;
-  cursor: pointer;
+  padding: 12px 20px;
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
-.sidebar ul li.active,
-.sidebar ul li:hover {
+.sidebar-menu a.active,
+.sidebar-menu a:hover {
   background-color: #a23a43;
   color: #fff;
 }
@@ -70,7 +71,6 @@ body {
   flex-direction: column;
 }
 
-/* Título */
 .main-content h1 {
   font-weight: 700;
   font-size: 1.8rem;
@@ -104,7 +104,6 @@ body {
   border-bottom-color: #c92c37;
 }
 
-/* Conteúdo da aba */
 .tab-content {
   display: none;
   font-size: 1rem;
@@ -115,7 +114,6 @@ body {
   display: block;
 }
 
-/* Formulário */
 .student-form {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -123,14 +121,12 @@ body {
   align-items: flex-start;
 }
 
-/* Campos do formulário */
 .form-fields {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Form rows */
 .form-row {
   display: flex;
   flex-direction: column;
@@ -147,7 +143,6 @@ body {
   flex-direction: column;
 }
 
-/* Labels */
 label {
   font-size: 0.9rem;
   margin-bottom: 6px;
@@ -156,7 +151,6 @@ label {
   user-select: none;
 }
 
-/* Inputs */
 input[type="text"],
 input[type="date"] {
   padding: 10px 12px;
@@ -172,7 +166,6 @@ input[type="date"]:focus {
   border-color: #c92c37;
 }
 
-/* Área reconhecimento facial */
 .facial-recognition {
   display: flex;
   gap: 15px;
@@ -184,7 +177,6 @@ input[type="date"]:focus {
   flex-grow: 1;
 }
 
-/* Botão capturar foto */
 .capture-btn {
   background-color: #f3f3f3;
   border: 1.5px solid #bbb;
@@ -193,125 +185,5 @@ input[type="date"]:focus {
   cursor: pointer;
   border-radius: 5px;
   color: #444;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.capture-btn:hover {
-  background-color: #eaeaea;
-  border-color: #c92c37;
-  color: #c92c37;
-}
-
-/* Área da foto */
-.photo-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  position: relative;
-  min-width: 220px;
-}
-
-/* Placeholder da foto redondo */
-.photo-placeholder {
-  width: 220px;
-  height: 220px;
-  background-color: #a9a9a9;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgb(0 0 0 / 0.1);
-}
-
-/* Botão da câmera */
-.camera-btn {
-  width: 100%;
-  max-width: 220px;
-  padding: 8px 0;
-  border: 1.8px solid #c92c37;
-  border-radius: 5px;
-  background: none;
-  color: #c92c37;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  user-select: none;
-}
-
-.camera-btn:hover {
-  background-color: #c92c37;
-  color: #fff;
-}
-
-.camera-btn img {
-  width: 18px;
-  height: 18px;
-}
-
-/* Botões salvar e cancelar */
-.form-actions {
-  margin-top: 40px;
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end;
-}
-
-/* Botão salvar */
-.btn-save {
-  font-size: 1rem;
-  padding: 12px 30px;
-  border: none;
-  background-color: #c92c37;
-  color: white;
-  cursor: pointer;
-  border-radius: 6px;
-  box-shadow: 0 3px 6px rgb(201 44 55 / 0.6);
-  transition: background-color 0.3s ease;
-  font-weight: 600;
-}
-
-.btn-save:hover {
-  background-color: #a82a2f;
-  box-shadow: 0 5px 12px rgb(168 42 47 / 0.7);
-}
-
-/* Botão cancelar */
-.btn-cancel {
-  font-size: 1rem;
-  padding: 10px 30px;
-  border: 1.8px solid #c92c37;
-  background-color: transparent;
-  color: #c92c37;
-  cursor: pointer;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-cancel:hover {
-  background-color: #c92c37;
-  color: #fff;
-}
-
-/* Responsivo */
-@media (max-width: 1024px) {
-  .student-form {
-    grid-template-columns: 1fr;
-  }
-
-  .photo-section {
-    align-items: center;
-    justify-content: center;
-  }
-
-  .main-content {
-    padding: 30px 20px;
-    margin: 20px;
-  }
+  font-size: 
 }

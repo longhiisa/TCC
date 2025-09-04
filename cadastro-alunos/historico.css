@@ -7,7 +7,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #6f1a2c; /* Vinho escuro do fundo */
+  background: linear-gradient(to bottom right, #4c1120, #7e2b35); /* Fundo igual ao da imagem */
   color: #333;
   display: flex;
   min-height: 100vh;
@@ -21,14 +21,14 @@ body {
 /* SIDEBAR */
 .sidebar {
   width: 220px;
-  background-color: #7b2430;
+  background-color: transparent;
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   color: #fff;
   user-select: none;
-  box-shadow: inset -5px 0 8px rgba(0,0,0,0.1);
+  box-shadow: inset -5px 0 8px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h2 {
@@ -45,13 +45,16 @@ body {
   font-weight: 500;
   padding: 10px;
   display: block;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: background-color 0.3s;
 }
 
-.sidebar a:hover,
+.sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .sidebar a.active {
-  background-color: #a23a43;
+  background-color: rgba(255, 255, 255, 0.25); /* Item ativo (Histórico, no seu exemplo) */
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -181,7 +184,7 @@ button.cancel:hover {
 }
 
 .table-container {
-  max-height: 600px; /* ou o valor que preferir */
+  max-height: 600px;
   overflow-y: auto;
   border: 1px solid #ddd;
   border-radius: 6px;
