@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes da Turma</title>
+  <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+
+  <div class="main-content">
+    <div class="form-container">
+      <h1 id="tituloTurma">Turma</h1>
+
+      <div class="lista-grupo">
+        <div>
+          <h3>Alunos</h3>
+          <ul id="listaAlunos"></ul>
+        </div>
+
+        <div>
+          <h3>Professores</h3>
+          <ul id="listaProfessores"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simulação de dados (você pode substituir por fetch de um JSON ou banco depois)
+    const dadosTurmas = {
+      "1A": {
+        alunos: ["Ana", "Bruno", "Carlos"],
+        professores: ["Prof. João", "Profª. Maria"]
+      },
+      "2B": {
+        alunos: ["Daniel", "Eduarda", "Fernanda"],
+        professores: ["Prof. Lucas", "Profª. Paula"]
+      },
+      "3C": {
+        alunos: ["Gabriel", "Helena", "Igor"],
+        professores: ["Prof. Rafael", "Profª. Beatriz"]
+      }
+    };
+
+    // Obter parâmetro da URL (?turma=1A)
+    const params = new URLSearchParams(window.location.search);
+    const turma = params.get("turma");
+
+    // Atualiza o conteúdo da página com base na turma
+    if (turma && dadosTurmas[turma]) {
+      document.getElementById("tituloTurma").textContent = "Turma " + turma;
+
+      const listaAlunos = document.getElementById("listaAlunos");
+      dadosTurmas[turma].alunos.forEach(aluno => {
+        const li = document.createElement("li");
+        li.textContent = aluno;
+        listaAlunos.appendChild(li);
+      });
+
+      const listaProfessores = document.getElementById("listaProfessores");
+      dadosTurmas[turma].professores.forEach(prof => {
+        const li = document.createElement("li");
+        li.textContent = prof;
+        listaProfessores.appendChild(li);
+      });
+    } else {
+      document.getElementById("tituloTurma").textContent = "Turma não encontrada.";
+    }
+  </script>
+</body>
+</html>
