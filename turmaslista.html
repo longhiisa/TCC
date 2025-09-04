@@ -6,7 +6,26 @@
   <link rel="stylesheet" href="cadastro.css">
 </head>
 <body>
-
+  <head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Alunos</title>
+    <link rel="stylesheet" href="cadastro.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+  <body>
+  
+    <div class="sidebar">
+      <h2>Cadastros</h2>
+      <ul>
+      <a class="goku" href="cadastro.html"> <li>Alunos</li>
+       <a class="goku" href="cadastroprof.html"> <li>Funcionários</li></a>
+       <a class="goku" href="turmas.html"> <li class="active">Turmas</li></a>
+       <a class="goku" href="autenticacao.html"> <li>Autenticação</li></a>
+       <a class="goku" href="historico.html"> <li>Histórico</li></a>
+      </ul>
+    </div>
+  
   <div class="main-content">
     <div class="form-container">
       <h1 id="tituloTurma">Turma</h1>
@@ -26,37 +45,53 @@
   </div>
 
   <script>
-    // Simulação de dados (você pode substituir por fetch de um JSON ou banco depois)
-    const dadosTurmas = {
-      "1A": {
-        alunos: ["Ana", "Bruno", "Carlos"],
-        professores: ["Prof. João", "Profª. Maria"]
-      },
-      "2B": {
-        alunos: ["Daniel", "Eduarda", "Fernanda"],
-        professores: ["Prof. Lucas", "Profª. Paula"]
-      },
-      "3C": {
-        alunos: ["Gabriel", "Helena", "Igor"],
-        professores: ["Prof. Rafael", "Profª. Beatriz"]
-      }
-    };
+const dadosTurmas = {
+  "1A": {
+    alunos: [
+      "Ana", "Bruno", "Carlos", "Daniela", "Eduardo", "Fernanda", "Gabriel", "Helena",
+      "Igor", "Júlia", "Kleber", "Larissa", "Marcos", "Natália", "Otávio", "Paula",
+      "Quésia", "Rafael", "Sabrina", "Tiago", "Ursula", "Vinícius", "Wesley", "Xênia",
+      "Yasmin", "Zeca", "Alana", "Beto", "Cíntia", "Davi", "Esther", "Fábio"
+    ],
+    professores: ["Prof. João", "Profª. Maria", "Prof. André"]
+  },
+  "2B": {
+    alunos: [
+      "Alice", "Bernardo", "Caio", "Débora", "Enzo", "Fabiana", "Giovana", "Henrique",
+      "Isabela", "Jonas", "Karen", "Leonardo", "Manuela", "Nicolas", "Olívia", "Pedro",
+      "Quintino", "Renata", "Samuel", "Talita", "Uriel", "Valentina", "William", "Xavier",
+      "Yuri", "Zuleica", "Alan", "Bianca", "Cauã", "Danilo", "Elen", "Felipe"
+    ],
+    professores: ["Prof. Lucas", "Profª. Paula", "Profª. Camila"]
+  },
+  "3C": {
+    alunos: [
+      "Amanda", "Bruna", "Cristiano", "Daiane", "Eduarda", "Felipe", "Gustavo", "Heloísa",
+      "Ian", "Jéssica", "Kauan", "Lorena", "Matheus", "Nicole", "Otto", "Patrícia",
+      "Quésia", "Rodrigo", "Stella", "Tadeu", "Ueslei", "Vanessa", "Wellington", "Ximena",
+      "Yago", "Zara", "Afonso", "Beatriz", "Clara", "Diego", "Elias", "Fernanda"
+    ],
+    professores: ["Prof. Rafael", "Profª. Beatriz", "Prof. Marcelo"]
+  }
+};
 
-    // Obter parâmetro da URL (?turma=1A)
+  
+    // Obter parâmetros da URL (?turma=1A&nome=IDEV-2)
     const params = new URLSearchParams(window.location.search);
     const turma = params.get("turma");
-
-    // Atualiza o conteúdo da página com base na turma
+    const nomeTurma = params.get("nome");
+  
     if (turma && dadosTurmas[turma]) {
-      document.getElementById("tituloTurma").textContent = "Turma " + turma;
-
+      // Mostra o nome amigável (ex: IDEV-2)
+      document.getElementById("tituloTurma").textContent = nomeTurma || "Turma";
+  
       const listaAlunos = document.getElementById("listaAlunos");
       dadosTurmas[turma].alunos.forEach(aluno => {
         const li = document.createElement("li");
         li.textContent = aluno;
         listaAlunos.appendChild(li);
       });
-
+  
       const listaProfessores = document.getElementById("listaProfessores");
       dadosTurmas[turma].professores.forEach(prof => {
         const li = document.createElement("li");
@@ -67,5 +102,6 @@
       document.getElementById("tituloTurma").textContent = "Turma não encontrada.";
     }
   </script>
+  
 </body>
 </html>

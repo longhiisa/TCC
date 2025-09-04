@@ -218,21 +218,25 @@
   flex-direction: column; /* Alinha os itens na vertical */
   gap: 10px;              /* Espaço entre os botões */
   margin-top: 20px;
+  
 }
 
+
 .turma-btn {
-  background-color: #B22234;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  background-color: #a02732;
   color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.2s;
+  text-align: center; /* opcional, dependendo do layout */
+  transition: background-color 0.3s;
 }
 
 .turma-btn:hover {
-  background-color: #8B1C2D;
+  background-color: #851f29;
 }
 
 .turma-detalhes h2 {
