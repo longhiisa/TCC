@@ -11,22 +11,75 @@
   <div class="container-login">
 
     <div class="left-panel register-left">
-      <h2 class="logo-senai">SENAI</h2>  <!-- Aqui está a escrita SENAI -->
+      <h2 class="logo-senai">SENAI</h2>
       <h1>Bem-vindo de volta!</h1>
       <p>Insira suas credenciais para acessar o painel administrativo</p>
     </div>
 
     <div class="right-panel">
-      <form class="login-form">
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Senha" required />
+      <form class="login-form" id="loginForm">
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="senha" placeholder="Senha" required />
         <button type="submit" class="btn-primary">Entrar</button>
       </form>
+
+      <div id="message" style="display: none; margin-top: 10px; padding: 10px; border-radius: 4px;"></div>
 
       <div class="switch-text">
         Ainda não tem uma conta? <a href="register.html">Cadastre-se aqui</a>
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      const messageDiv = document.getElementById('message');
+      messageDiv.style.display = 'none';
+
+      try {
+        const response = await fetch('http://localhost:3000/api/admin/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        messageDiv.style.display = 'block';
+
+        if (result.success) {
+          messageDiv.style.backgroundColor = '#d4edda';
+          messageDiv.style.color = '#155724';
+          messageDiv.style.border = '1px solid #c3e6cb';
+          messageDiv.textContent = result.message;
+
+          // Redireciona após 2 segundos
+          setTimeout(() => {
+            window.location.href = 'home.html'; // Troque pela página principal
+          }, 2000);
+        } else {
+          messageDiv.style.backgroundColor = '#f8d7da';
+          messageDiv.style.color = '#721c24';
+          messageDiv.style.border = '1px solid #f5c6cb';
+          messageDiv.textContent = result.message;
+        }
+
+      } catch (error) {
+        console.error('Erro:', error);
+        messageDiv.style.display = 'block';
+        messageDiv.style.backgroundColor = '#f8d7da';
+        messageDiv.style.color = '#721c24';
+        messageDiv.style.border = '1px solid #f5c6cb';
+        messageDiv.textContent = 'Erro ao conectar com o servidor';
+      }
+    });
+  </script>
 </body>
 </html>
