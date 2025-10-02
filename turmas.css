@@ -16,26 +16,31 @@ body {
 /* SIDEBAR */
 .sidebar {
   width: 220px;
-  background: linear-gradient(135deg, #800020, #950e2d);
+  background: linear-gradient(135deg, #5b0e2d, #7b2430); /* degrade igual ao fundo */
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
   box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+  position: fixed; /* fixa a sidebar */
+  height: 100vh;
 }
 
+/* LOGO SENAI */
 .logo-senai {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 900;
   color: white;
   letter-spacing: 2px;
+  text-align: left; /* alinhado à esquerda */
   margin-bottom: 40px;
-  text-align: center;
 }
 
+/* MENU */
 .menu {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  flex: 1; /* ocupa o espaço entre logo e footer */
 }
 
 .menu a {
@@ -54,9 +59,20 @@ body {
   font-weight: 600;
 }
 
+/* LOGO SENAI NO CANTO INFERIOR ESQUERDO */
+.sidebar-footer {
+  margin-top: auto;
+  text-align: left;
+}
+
+.sidebar-footer img {
+  width: 120px;
+}
+
 /* MAIN */
 .main-content {
   flex: 1;
+  margin-left: 220px; /* deslocamento para não sobrepor a sidebar */
   padding: 40px 60px;
   overflow-y: auto;
 }
@@ -121,6 +137,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     padding: 20px;
+    height: auto;
   }
 
   .menu {
@@ -129,6 +146,7 @@ body {
   }
 
   .main-content {
+    margin-left: 0;
     padding: 20px;
   }
 
