@@ -11,23 +11,80 @@
   <div class="container-login">
 
     <div class="left-panel register-left">
-      <h2 class="logo-senai">SENAI</h2>  <!-- Aqui está a escrita SENAI -->
+      <h2 class="logo-senai">SENAI</h2>
       <h1>Bem-vindo, Admin!</h1>
       <p>Preencha os dados para criar sua conta administrativa</p>
     </div>
 
     <div class="right-panel register-right">
-      <form class="register-form">
-        <input type="text" placeholder="Nome completo" required />
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Senha" required />
-        <input type="password" placeholder="Confirmar senha" required />
+      <form class="register-form" id="registerForm">
+        <input type="text" name="nome_completo" placeholder="Nome completo" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="senha" placeholder="Senha" required />
+        <input type="password" name="confirmar_senha" placeholder="Confirmar senha" required />
         <button type="submit" class="btn-primary">Cadastrar</button>
       </form>
+
+      <!-- Div de mensagem de sucesso/erro -->
+      <div id="message" style="display: none; margin-top: 10px; padding: 10px; border-radius: 4px;"></div>
+
       <p class="switch-text">
         Já tem uma conta? <a href="login.html">Faça login aqui</a>
       </p>
     </div>
   </div>
+
+  <!-- Script JavaScript -->
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+
+      const messageDiv = document.getElementById('message');
+      messageDiv.style.display = 'none';
+
+      try {
+        const response = await fetch('http://localhost:3000/api/admin/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        messageDiv.style.display = 'block';
+
+        if (result.success) {
+          messageDiv.style.backgroundColor = '#d4edda';
+          messageDiv.style.color = '#155724';
+          messageDiv.style.border = '1px solid #c3e6cb';
+          messageDiv.textContent = result.message;
+
+          this.reset();
+
+          setTimeout(() => {
+            window.location.href = 'register.html';
+          }, 2000);
+        } else {
+          messageDiv.style.backgroundColor = '#f8d7da';
+          messageDiv.style.color = '#721c24';
+          messageDiv.style.border = '1px solid #f5c6cb';
+          messageDiv.textContent = result.message;
+        }
+
+      } catch (error) {
+        console.error('Erro:', error);
+        messageDiv.style.display = 'block';
+        messageDiv.style.backgroundColor = '#f8d7da';
+        messageDiv.style.color = '#721c24';
+        messageDiv.style.border = '1px solid #f5c6cb';
+        messageDiv.textContent = 'Erro ao conectar com o servidor';
+      }
+    });
+  </script>
 </body>
 </html>
