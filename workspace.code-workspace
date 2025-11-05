@@ -7,5 +7,7 @@
 			"path": "../../../../TCC z/TCC"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TCC"
+	}
 }
