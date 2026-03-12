@@ -68,7 +68,7 @@ TCC/
 ├── Postman-win64-Setup.exe        # Instalador Postman
 ├── pymol-open-source-wheels-main.zip
 ├── README.md
-└── vs_BuildTools.exe              # Instalador Visual Studio Build Tools
+└── vs_BuildTools.exe              '# Instalador Visual Studio Build Tools'
 
 4. Qual a função das Dependencias do Reconhecimento Facial
 
@@ -136,6 +136,13 @@ os vetores faciais (como BLOBs ou base64).
 .Necessária para compilar o dlib (especialmente no Windows).
 
 .Só é usada durante a instalação do dlib, não no funcionamento do sistema.
+
+9) MSVC compiler
+O MSVC (Microsoft Visual C++) Compiler é um compilador proprietário da Microsoft para as linguagens C e C++ no Windows, integrado principalmente ao Visual Studio. Ele transforma código-fonte em executáveis (.exe) ou bibliotecas (.dll), sendo fundamental para desenvolvimento nativo, DirectX e aplicações .NET, oferecendo alto suporte aos padrões C++20. 
+
+10) Windows SDK
+O Windows Software Development Kit (SDK) é um conjunto de ferramentas, bibliotecas, documentação e amostras de código da Microsoft projetado para ajudar desenvolvedores a criar aplicativos nativos, modernos e de alto desempenho para o sistema operacional Windows, incluindo suporte para WinUI 3, WPF, WinForms e Win32. Ele é essencial para interagir com a API do Windows, permitindo compilar e depurar softwares. 
+
 
 5. O que eu fiz desde o inicio do Projeto até hoje 05/11/1025
 
