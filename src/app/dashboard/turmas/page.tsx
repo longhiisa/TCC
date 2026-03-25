@@ -16,20 +16,22 @@ interface Turma {
 }
 
 const turmas: Turma[] = [
-  { id: 1, codigo: "DS-1A", nome: "Desenvolvimento de Sistemas 1A", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 38, capacidade: 40, professor: "Prof. João Marcos", status: "Ativa" },
-  { id: 2, codigo: "DS-1B", nome: "Desenvolvimento de Sistemas 1B", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Tarde", alunos: 36, capacidade: 40, professor: "Prof. João Marcos", status: "Ativa" },
-  { id: 3, codigo: "DS-1C", nome: "Desenvolvimento de Sistemas 1C", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Noite", alunos: 34, capacidade: 40, professor: "Profa. Carla Andrade", status: "Ativa" },
-  { id: 4, codigo: "DS-2A", nome: "Desenvolvimento de Sistemas 2A", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 35, capacidade: 40, professor: "Profa. Carla Andrade", status: "Ativa" },
-  { id: 5, codigo: "DS-2B", nome: "Desenvolvimento de Sistemas 2B", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Tarde", alunos: 33, capacidade: 40, professor: "Prof. Ricardo Souza", status: "Ativa" },
-  { id: 6, codigo: "DS-3A", nome: "Desenvolvimento de Sistemas 3A", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 30, capacidade: 40, professor: "Prof. Ricardo Souza", status: "Ativa" },
-  { id: 7, codigo: "RDS-1A", nome: "Redes de Computadores 1A", curso: "Técnico em Redes de Computadores", periodo: "Manhã", alunos: 37, capacidade: 40, professor: "Prof. Marcos Vinicius", status: "Ativa" },
-  { id: 8, codigo: "RDS-1B", nome: "Redes de Computadores 1B", curso: "Técnico em Redes de Computadores", periodo: "Tarde", alunos: 28, capacidade: 40, professor: "Prof. Marcos Vinicius", status: "Ativa" },
-  { id: 9, codigo: "RDS-2A", nome: "Redes de Computadores 2A", curso: "Técnico em Redes de Computadores", periodo: "Manhã", alunos: 32, capacidade: 40, professor: "Profa. Fernanda Lima", status: "Ativa" },
-  { id: 10, codigo: "RDS-2B", nome: "Redes de Computadores 2B", curso: "Técnico em Redes de Computadores", periodo: "Tarde", alunos: 25, capacidade: 40, professor: "Profa. Fernanda Lima", status: "Ativa" },
-  { id: 11, codigo: "RDS-3A", nome: "Redes de Computadores 3A", curso: "Técnico em Redes de Computadores", periodo: "Noite", alunos: 22, capacidade: 40, professor: "Prof. Marcos Vinicius", status: "Ativa" },
-  { id: 12, codigo: "ELE-1A", nome: "Eletroeletrônica 1A", curso: "Técnico em Eletroeletrônica", periodo: "Manhã", alunos: 0, capacidade: 40, professor: "—", status: "Inativa" },
-];
+  { id: 1, codigo: "IDEV5", nome: "Desenvolvimento de Sistemas 5", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 32, capacidade: 32, professor: "Prof. João Marcos", status: "Ativa" },
+  { id: 2, codigo: "IDEV5", nome: "Desenvolvimento de Sistemas 5", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Tarde", alunos: 32, capacidade: 32, professor: "Prof. João Marcos", status: "Ativa" },
 
+  { id: 3, codigo: "IMEC5", nome: "Mecânica 5", curso: "Técnico em Mecânica", periodo: "Manhã", alunos: 16, capacidade: 16, professor: "Profa. Carla Andrade", status: "Ativa" },
+  { id: 4, codigo: "IMEC5", nome: "Mecânica 5", curso: "Técnico em Mecânica", periodo: "Tarde", alunos: 16, capacidade: 16, professor: "Prof. Marcos Vinicius", status: "Ativa" },
+
+  { id: 5, codigo: "IELE4", nome: "Eletrônica 4", curso: "Técnico em Eletrônica", periodo: "Manhã", alunos: 16, capacidade: 16, professor: "Profa. Carla Andrade", status: "Ativa" },
+
+  { id: 6, codigo: "IDEV4", nome: "Desenvolvimento de Sistemas 4", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 32, capacidade: 32, professor: "Profa. Fernanda Lima", status: "Ativa" },
+  { id: 7, codigo: "IDEV4", nome: "Desenvolvimento de Sistemas 4", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Tarde", alunos: 32, capacidade: 32, professor: "Prof. Ricardo Souza", status: "Ativa" },
+
+  { id: 8, codigo: "IDEV3", nome: "Desenvolvimento de Sistemas 3", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Manhã", alunos: 30, capacidade: 32, professor: "Prof. Ricardo Souza", status: "Ativa" },
+  { id: 9, codigo: "IDEV3", nome: "Desenvolvimento de Sistemas 3", curso: "Técnico em Desenvolvimento de Sistemas", periodo: "Tarde", alunos: 25, capacidade: 32, professor: "Profa. Fernanda Lima", status: "Ativa" },
+
+  { id: 10, codigo: "IELE3", nome: "Eletrônica 3", curso: "Técnico em Eletrônica", periodo: "Manhã", alunos: 0, capacidade: 16, professor: "—", status: "Inativa" }
+];
 export default function TurmasPage() {
   const [busca, setBusca] = useState("");
   const [filtroStatus, setFiltroStatus] = useState("Todas");

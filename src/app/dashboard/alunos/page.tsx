@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Search, UserPlus, Filter, MoreVertical, Eye, Pencil, Trash2, ChevronDown } from "lucide-react";
 
 const alunosData = [
-  { id: 1, nome: "João Silva", turma: "2º DS", rfid: "A23F91", status: "Ativo", entrada: "07:15", avatar: "JS" },
+  { id: 1, nome: "Isabela Longhi", turma: "2º DS", rfid: "A23F91", status: "Ativo", entrada: "07:15", avatar: "JS" },
   { id: 2, nome: "Maria Oliveira", turma: "3º DS", rfid: "B88K21", status: "Ativo", entrada: "07:18", avatar: "MO" },
-  { id: 3, nome: "Pedro Santos", turma: "1º DS", rfid: "C55T77", status: "Inativo", entrada: "—", avatar: "PS" },
-  { id: 4, nome: "Ana Lima", turma: "2º DS", rfid: "D91R44", status: "Ativo", entrada: "07:22", avatar: "AL" },
-  { id: 5, nome: "Carlos Mendes", turma: "3º DS", rfid: "E07P88", status: "Ativo", entrada: "07:31", avatar: "CM" },
-  { id: 6, nome: "Beatriz Costa", turma: "1º DS", rfid: "F33X12", status: "Ativo", entrada: "07:45", avatar: "BC" },
+  { id: 3, nome: "Carlos Martins", turma: "1º DS", rfid: "C55T77", status: "Inativo", entrada: "—", avatar: "PS" },
+  { id: 4, nome: "Ana Minin", turma: "2º DS", rfid: "D91R44", status: "Ativo", entrada: "07:22", avatar: "AL" },
+  { id: 5, nome: "Lucas Gregório", turma: "3º DS", rfid: "E07P88", status: "Ativo", entrada: "07:31", avatar: "CM" },
+  { id: 6, nome: "Otávio Seidinger", turma: "1º DS", rfid: "F33X12", status: "Ativo", entrada: "07:45", avatar: "BC" },
   { id: 7, nome: "Lucas Ferreira", turma: "2º DS", rfid: "G74Y56", status: "Inativo", entrada: "—", avatar: "LF" },
   { id: 8, nome: "Fernanda Rocha", turma: "3º DS", rfid: "H12Z99", status: "Ativo", entrada: "07:51", avatar: "FR" },
 ];

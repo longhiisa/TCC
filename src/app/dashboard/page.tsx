@@ -54,11 +54,11 @@ const stats = [
 ];
 
 const recentActivity = [
-  { name: "Maria Souza", turma: "2º DS", tipo: "Entrada", metodo: "RFID", hora: "07:28", avatar: "MS" },
-  { name: "João Silva", turma: "3º DS", tipo: "Entrada", metodo: "Facial", hora: "07:31", avatar: "JS" },
-  { name: "Ana Lima", turma: "1º DS", tipo: "Entrada", metodo: "RFID", hora: "07:45", avatar: "AL" },
-  { name: "Carlos Melo", turma: "2º DS", tipo: "Saída", metodo: "RFID", hora: "11:50", avatar: "CM" },
-  { name: "Beatriz Costa", turma: "3º DS", tipo: "Entrada", metodo: "Facial", hora: "12:05", avatar: "BC" },
+  { name: "Otávio Rodrigues", turma: "IDEV3 DS", tipo: "Entrada", metodo: "RFID", hora: "07:28", avatar: "MS" },
+  { name: "Isabela Longhi", turma: "IELEMEC3", tipo: "Entrada", metodo: "Facial", hora: "07:31", avatar: "JS" },
+  { name: "Maria Santos", turma: "IDEV5", tipo: "Entrada", metodo: "RFID", hora: "07:45", avatar: "AL" },
+  { name: "Carlos Martins", turma: "IELEMEC4", tipo: "Saída", metodo: "RFID", hora: "11:50", avatar: "CM" },
+  { name: "Maria Hirano", turma: "IDEV2", tipo: "Entrada", metodo: "Facial", hora: "12:05", avatar: "BC" },
 ];
 
 const systemStatus = [

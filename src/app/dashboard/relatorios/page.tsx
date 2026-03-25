@@ -14,12 +14,12 @@ const dadosSemana = [
 ];
 
 const dadosTurmas = [
-  { turma: "DS-3A", presenca: 96 },
-  { turma: "DS-2A", presenca: 92 },
-  { turma: "RDS-1A", presenca: 89 },
-  { turma: "DS-1A", presenca: 87 },
-  { turma: "RDS-2A", presenca: 84 },
-  { turma: "DS-1C", presenca: 81 },
+  { turma: "IDEV3", presenca: 96 },
+  { turma: "IDEV4", presenca: 92 },
+  { turma: "IELE4", presenca: 89 },
+  { turma: "IMEC3", presenca: 87 },
+  { turma: "IELE5", presenca: 84 },
+  { turma: "IMEC5", presenca: 81 },
 ];
 
 const metodos = [
@@ -32,7 +32,6 @@ const maxEntradas = Math.max(...dadosSemana.map((d) => d.entradas));
 export default function RelatoriosPage() {
   const [periodoSelecionado, setPeriodoSelecionado] = useState("Semana");
 
-  // SVG Donut chart
   const total = metodos.reduce((s, m) => s + m.valor, 0);
   let cumulativo = 0;
   const raio = 40;
@@ -51,7 +50,9 @@ export default function RelatoriosPage() {
               <button
                 key={p}
                 onClick={() => setPeriodoSelecionado(p)}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${periodoSelecionado === p ? "bg-[#c8102e] text-white" : "text-gray-600 hover:bg-gray-50"}`}
+                className={`px-4 py-2 text-sm font-medium transition-colors ${
+                  periodoSelecionado === p ? "bg-[#c8102e] text-white" : "text-gray-600 hover:bg-gray-50"
+                }`}
               >
                 {p}
               </button>
@@ -99,15 +100,13 @@ export default function RelatoriosPage() {
                 <div className="w-full flex flex-col items-center gap-0.5" style={{ height: "120px", justifyContent: "flex-end" }}>
                   {d.negados > 0 && (
                     <div
-                      className="w-full bg-red-200 rounded-t-sm transition-all"
+                      className="w-full bg-red-200 rounded-t-sm"
                       style={{ height: `${(d.negados / maxEntradas) * 100}px` }}
-                      title={`${d.negados} negados`}
                     />
                   )}
                   <div
-                    className="w-full bg-[#c8102e] rounded-t-sm transition-all"
+                    className="w-full bg-[#c8102e] rounded-t-sm"
                     style={{ height: `${(d.entradas / maxEntradas) * 100}px` }}
-                    title={`${d.entradas} entradas`}
                   />
                 </div>
                 <span className="text-xs text-gray-400">{d.dia}</span>
@@ -117,7 +116,7 @@ export default function RelatoriosPage() {
           </div>
         </div>
 
-        {/* Donut Chart */}
+        {/* Donut */}
         <div className="bg-white border border-gray-200 rounded-xl p-5">
           <h2 className="font-semibold text-gray-800 mb-4">Método de Acesso</h2>
           <div className="flex flex-col items-center">
@@ -126,13 +125,14 @@ export default function RelatoriosPage() {
                 const pct = m.valor / total;
                 const dash = pct * circunferencia;
                 const gap = circunferencia - dash;
-                const offset = circunferencia - cumulativo * circunferencia / total * (circunferencia / circunferencia);
                 const dashOffset = circunferencia * (1 - cumulativo / total);
                 cumulativo += m.valor;
                 return (
                   <circle
                     key={m.nome}
-                    cx="50" cy="50" r={raio}
+                    cx="50"
+                    cy="50"
+                    r={raio}
                     fill="none"
                     stroke={m.cor}
                     strokeWidth="16"
@@ -142,9 +142,10 @@ export default function RelatoriosPage() {
                   />
                 );
               })}
-              <text x="50" y="47" textAnchor="middle" className="text-xs" fontSize="10" fontWeight="bold" fill="#111">68%</text>
+              <text x="50" y="47" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#111">68%</text>
               <text x="50" y="58" textAnchor="middle" fontSize="7" fill="#999">RFID</text>
             </svg>
+
             <div className="mt-4 space-y-2 w-full">
               {metodos.map((m) => (
                 <div key={m.nome} className="flex items-center justify-between text-sm">
@@ -160,7 +161,7 @@ export default function RelatoriosPage() {
         </div>
       </div>
 
-      {/* Presença por Turma */}
+      {/* Presença */}
       <div className="bg-white border border-gray-200 rounded-xl p-5">
         <h2 className="font-semibold text-gray-800 mb-4">Taxa de Presença por Turma</h2>
         <div className="space-y-3">
@@ -169,7 +170,9 @@ export default function RelatoriosPage() {
               <span className="w-14 text-sm font-mono font-medium text-gray-700">{t.turma}</span>
               <div className="flex-1 h-6 bg-gray-100 rounded-lg overflow-hidden">
                 <div
-                  className={`h-full rounded-lg flex items-center justify-end pr-2 transition-all ${t.presenca >= 90 ? "bg-green-500" : t.presenca >= 80 ? "bg-yellow-500" : "bg-red-500"}`}
+                  className={`h-full flex items-center justify-end pr-2 ${
+                    t.presenca >= 90 ? "bg-green-500" : t.presenca >= 80 ? "bg-yellow-500" : "bg-red-500"
+                  }`}
                   style={{ width: `${t.presenca}%` }}
                 >
                   <span className="text-xs font-medium text-white">{t.presenca}%</span>
