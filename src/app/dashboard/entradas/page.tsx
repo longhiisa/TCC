@@ -1,17 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import * as tmImage from "@teachablemachine/image";
 import {
-  Wifi,
-  Camera,
-  CreditCard,
-  CheckCircle,
-  XCircle,
-  Clock,
-  User,
-  RefreshCw,
-  Activity,
+  Wifi, Camera, CreditCard, CheckCircle, XCircle,
+  Clock, Activity, ShieldCheck
 } from "lucide-react";
+
+// --- CONFIGURAÇÕES DO MODELO ---
+// Substitua pelo link que você gerou no Teachable Machine (Upload Model)
+const URL_MODELO = "https://teachablemachine.withgoogle.com/models/SEU_ID_AQUI/";
 
 type EntradaTipo = "RFID" | "Facial";
 type EntradaStatus = "Autorizado" | "Negado";
@@ -27,125 +25,152 @@ interface Entrada {
   local: string;
 }
 
-const entradasIniciais: Entrada[] = [
-  { id: 1, nome: "Carlos Eduardo Silva", turma: "DS-3A", tipo: "RFID", status: "Autorizado", hora: "08:47:12", avatar: "CE", local: "Entrada Principal" },
-  { id: 2, nome: "Ana Paula Mendes", turma: "RDS-2B", tipo: "Facial", status: "Autorizado", hora: "08:46:55", avatar: "AP", local: "Entrada Principal" },
-  { id: 3, nome: "Desconhecido", turma: "—", tipo: "Facial", status: "Negado", hora: "08:45:30", avatar: "?", local: "Entrada Lateral" },
-  { id: 4, nome: "Lucas Ferreira Santos", turma: "DS-1C", tipo: "RFID", status: "Autorizado", hora: "08:44:18", avatar: "LF", local: "Entrada Principal" },
-  { id: 5, nome: "Beatriz Oliveira", turma: "RDS-3A", tipo: "RFID", status: "Autorizado", hora: "08:43:02", avatar: "BO", local: "Entrada Principal" },
-  { id: 6, nome: "Rafael Costa Lima", turma: "DS-2A", tipo: "Facial", status: "Autorizado", hora: "08:41:47", avatar: "RC", local: "Laboratório" },
-  { id: 7, nome: "Juliana Neves", turma: "DS-1A", tipo: "RFID", status: "Negado", hora: "08:40:33", avatar: "JN", local: "Entrada Principal" },
-  { id: 8, nome: "Thiago Almeida", turma: "RDS-1B", tipo: "Facial", status: "Autorizado", hora: "08:39:20", avatar: "TA", local: "Entrada Principal" },
-];
-
-const novasEntradas: Entrada[] = [
-  { id: 9, nome: "Fernanda Rocha", turma: "DS-2B", tipo: "RFID", status: "Autorizado", hora: "", avatar: "FR", local: "Entrada Principal" },
-  { id: 10, nome: "Desconhecido", turma: "—", tipo: "Facial", status: "Negado", hora: "", avatar: "?", local: "Laboratório" },
-  { id: 11, nome: "Pedro Henrique", turma: "DS-3A", tipo: "RFID", status: "Autorizado", hora: "", avatar: "PH", local: "Entrada Principal" },
-];
-
 export default function EntradasPage() {
-  const [entradas, setEntradas] = useState<Entrada[]>(entradasIniciais);
+  const [entradas, setEntradas] = useState<Entrada[]>([]);
   const [pulsar, setPulsar] = useState(false);
-  const [contador, setContador] = useState(0);
   const [filtro, setFiltro] = useState<"Todos" | EntradaTipo | EntradaStatus>("Todos");
+  
+  // Estados da IA
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [model, setModel] = useState<tmImage.CustomMobileNet | null>(null);
+  const [lastDetected, setLastDetected] = useState("");
+  const [cooldown, setCooldown] = useState(false);
 
+  // 1. Carrega a IA e a Câmera
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const hora = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
-      const nova = novasEntradas[contador % novasEntradas.length];
-      const novaEntrada: Entrada = { ...nova, id: Date.now(), hora };
+    async function initIA() {
+      try {
+        const m = await tmImage.load(URL_MODELO + "model.json", URL_MODELO + "metadata.json");
+        setModel(m);
+        
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { width: 640, height: 480 } 
+        });
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      } catch (err) {
+        console.error("Erro ao iniciar sistema:", err);
+      }
+    }
+    initIA();
+  }, []);
 
-      setEntradas((prev) => [novaEntrada, ...prev.slice(0, 19)]);
-      setPulsar(true);
-      setContador((c) => c + 1);
-      setTimeout(() => setPulsar(false), 600);
-    }, 5000);
+  // 2. Loop de Reconhecimento em Tempo Real
+  useEffect(() => {
+    let frameId: number;
 
-    return () => clearInterval(interval);
-  }, [contador]);
+    async function predictLoop() {
+      if (model && videoRef.current && !cooldown) {
+        const prediction = await model.predict(videoRef.current);
+        const result = prediction.sort((a, b) => b.probability - a.probability)[0];
+
+        // Se a confiança for maior que 85% e for diferente do último detectado (ou se passou tempo)
+        if (result.probability > 0.85 && result.className !== "Class 4" && result.className !== lastDetected) {
+          registrarEntrada(result.className);
+        }
+      }
+      frameId = requestAnimationFrame(predictLoop);
+    }
+
+    if (model) frameId = requestAnimationFrame(predictLoop);
+    return () => cancelAnimationFrame(frameId);
+  }, [model, lastDetected, cooldown]);
+
+  // 3. Função para Registrar no Log
+  const registrarEntrada = (nomeDetectado: string) => {
+    const now = new Date();
+    const hora = now.toLocaleTimeString("pt-BR");
+    
+    const novaEntrada: Entrada = {
+      id: Date.now(),
+      nome: nomeDetectado,
+      turma: nomeDetectado === "PROFESSOR" ? "DOCENTE" : "DS-3A", // Lógica simples de turma
+      tipo: "Facial",
+      status: "Autorizado",
+      hora: hora,
+      avatar: nomeDetectado.substring(0, 2).toUpperCase(),
+      local: "Portaria Principal"
+    };
+
+    setEntradas((prev) => [novaEntrada, ...prev.slice(0, 9)]);
+    setLastDetected(nomeDetectado);
+    setPulsar(true);
+    setCooldown(true);
+
+    // Evita registrar a mesma pessoa 50 vezes seguida
+    setTimeout(() => setPulsar(false), 1000);
+    setTimeout(() => setCooldown(false), 5000); // 5 segundos para poder detectar a mesma pessoa de novo
+  };
 
   const filtradas = entradas.filter((e) => {
     if (filtro === "Todos") return true;
     return e.tipo === filtro || e.status === filtro;
   });
 
-  const autorizados = entradas.filter((e) => e.status === "Autorizado").length;
-  const negados = entradas.filter((e) => e.status === "Negado").length;
-  const rfid = entradas.filter((e) => e.tipo === "RFID").length;
-  const facial = entradas.filter((e) => e.tipo === "Facial").length;
-
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Entradas em Tempo Real</h1>
-          <p className="text-sm text-gray-500 mt-1">Monitoramento ao vivo dos acessos</p>
-        </div>
-        <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-4 py-2">
-          <span className={`w-2 h-2 rounded-full bg-green-500 ${pulsar ? "animate-ping" : "animate-pulse"}`} />
-          <span className="text-sm font-medium text-green-700">Sistema Ativo</span>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Autorizados", value: autorizados, icon: CheckCircle, color: "text-green-600", bg: "bg-green-50", border: "border-green-100" },
-          { label: "Negados", value: negados, icon: XCircle, color: "text-red-600", bg: "bg-red-50", border: "border-red-100" },
-          { label: "Via RFID", value: rfid, icon: CreditCard, color: "text-blue-600", bg: "bg-blue-50", border: "border-blue-100" },
-          { label: "Via Facial", value: facial, icon: Camera, color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
-        ].map((stat) => (
-          <div key={stat.label} className={`${stat.bg} ${stat.border} border rounded-xl p-4 flex items-center gap-3`}>
-            <stat.icon className={`w-8 h-8 ${stat.color}`} />
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-xs text-gray-500">{stat.label}</p>
+    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
+      {/* Topo com Monitoramento */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Painel da Câmera Logitech C270 */}
+        <div className="lg:col-span-2 bg-white p-4 rounded-2xl border border-gray-200 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Camera className="text-[#c8102e]" size={20} />
+              <h2 className="font-bold text-gray-800">Monitoramento ao Vivo</h2>
+            </div>
+            <div className="flex items-center gap-2 bg-green-50 px-3 py-1 rounded-full border border-green-100">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-bold text-green-700 uppercase">IA Ativa</span>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Dispositivos */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[
-          { nome: "RFID — Entrada Principal", icon: CreditCard, status: "Online", cor: "green" },
-          { nome: "Câmera — Entrada Principal", icon: Camera, status: "Online", cor: "green" },
-          { nome: "RFID — Laboratório", icon: Wifi, status: "Online", cor: "green" },
-        ].map((d) => (
-          <div key={d.nome} className="bg-white border border-gray-200 rounded-xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-              <d.icon className="w-5 h-5 text-gray-600" />
+          
+          <div className="relative aspect-video bg-black rounded-xl overflow-hidden border-4 border-gray-100">
+            <video ref={videoRef} autoPlay muted className="w-full h-full object-cover scale-x-[-1]" />
+            <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-lg text-white text-xs">
+              Logitech C270 HD
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-gray-800">{d.nome}</p>
-              <p className="text-xs text-green-600 flex items-center gap-1 mt-0.5">
-                <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
-                {d.status}
-              </p>
-            </div>
+            {pulsar && (
+               <div className="absolute inset-0 border-8 border-green-500 animate-in fade-in zoom-in duration-300 flex items-center justify-center">
+                  <div className="bg-green-500 text-white px-6 py-2 rounded-full font-black text-xl shadow-xl">
+                    ACESSO LIBERADO
+                  </div>
+               </div>
+            )}
           </div>
-        ))}
+        </div>
+
+        {/* Status Rápido */}
+        <div className="space-y-4">
+          <div className="bg-[#c8102e] p-6 rounded-2xl text-white shadow-lg shadow-red-100">
+            <ShieldCheck size={32} className="mb-2 opacity-80" />
+            <p className="text-sm opacity-90">Último Acesso:</p>
+            <h3 className="text-2xl font-black">{lastDetected || "Aguardando..."}</h3>
+          </div>
+          
+          <div className="bg-white p-6 rounded-2xl border border-gray-200">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-gray-500 text-sm">Total de Acessos</span>
+              <Activity size={16} className="text-blue-500" />
+            </div>
+            <p className="text-4xl font-black text-gray-900">{entradas.length}</p>
+          </div>
+        </div>
       </div>
 
-      {/* Filtros + Tabela */}
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+      {/* Tabela de Logs (Seu Design Original Integrado) */}
+      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white">
           <div className="flex items-center gap-2">
-            <Activity className="w-5 h-5 text-[#c8102e]" />
-            <h2 className="font-semibold text-gray-800">Log de Acessos</h2>
+            <div className="w-2 h-6 bg-[#c8102e] rounded-full" />
+            <h2 className="font-bold text-gray-800">Histórico Recente</h2>
           </div>
           <div className="flex gap-2">
-            {(["Todos", "RFID", "Facial", "Autorizado", "Negado"] as const).map((f) => (
+            {(["Todos", "Facial", "Autorizado"] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFiltro(f)}
-                className={`text-xs px-3 py-1.5 rounded-lg font-medium transition-all ${
-                  filtro === f
-                    ? "bg-[#c8102e] text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                className={`text-xs px-4 py-2 rounded-xl font-bold transition-all ${
+                  filtro === f ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
                 {f}
@@ -156,63 +181,51 @@ export default function EntradasPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-gray-50">
               <tr>
-                {["Aluno", "Turma", "Local", "Método", "Status", "Horário"].map((col) => (
-                  <th key={col} className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wide px-4 py-3">
+                {["Aluno", "Local", "Método", "Status", "Horário"].map((col) => (
+                  <th key={col} className="text-left text-[10px] font-black text-gray-400 uppercase tracking-widest px-6 py-4">
                     {col}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
-              {filtradas.map((entrada, i) => (
-                <tr
-                  key={entrada.id}
-                  className={`hover:bg-gray-50 transition-colors ${i === 0 && pulsar ? "bg-blue-50" : ""}`}
-                >
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
-                        entrada.status === "Negado" ? "bg-red-100 text-red-700" : "bg-[#c8102e] text-white"
-                      }`}>
-                        {entrada.avatar}
-                      </div>
-                      <span className="text-sm font-medium text-gray-800">{entrada.nome}</span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{entrada.turma}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{entrada.local}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-                      entrada.tipo === "RFID"
-                        ? "bg-blue-50 text-blue-700"
-                        : "bg-purple-50 text-purple-700"
-                    }`}>
-                      {entrada.tipo === "RFID" ? <CreditCard className="w-3 h-3" /> : <Camera className="w-3 h-3" />}
-                      {entrada.tipo}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-                      entrada.status === "Autorizado"
-                        ? "bg-green-50 text-green-700"
-                        : "bg-red-50 text-red-700"
-                    }`}>
-                      {entrada.status === "Autorizado"
-                        ? <CheckCircle className="w-3 h-3" />
-                        : <XCircle className="w-3 h-3" />}
-                      {entrada.status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="flex items-center gap-1 text-xs text-gray-500">
-                      <Clock className="w-3 h-3" />
-                      {entrada.hora}
-                    </span>
+            <tbody className="divide-y divide-gray-100">
+              {filtradas.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-10 text-gray-400 text-sm">
+                    Nenhum movimento detectado pela câmera ainda...
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filtradas.map((entrada) => (
+                  <tr key={entrada.id} className="hover:bg-gray-50/50 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-gray-900 rounded-xl flex items-center justify-center text-white text-xs font-black">
+                          {entrada.avatar}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-gray-800">{entrada.nome}</p>
+                          <p className="text-[10px] text-gray-400 font-bold">{entrada.turma}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-500 font-medium">{entrada.local}</td>
+                    <td className="px-6 py-4">
+                      <span className="flex items-center gap-1.5 text-[10px] font-black uppercase text-purple-600 bg-purple-50 px-2 py-1 rounded-lg w-fit">
+                        <Camera size={12} /> {entrada.tipo}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="flex items-center gap-1.5 text-[10px] font-black uppercase text-green-600 bg-green-50 px-2 py-1 rounded-lg w-fit">
+                        <CheckCircle size={12} /> {entrada.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-400 font-mono">{entrada.hora}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
