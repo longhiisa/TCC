@@ -14,6 +14,7 @@ export default function NovoAlunoPage() {
 
   // --- ESTADOS PARA A CÂMERA ---
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [cameraOn, setCameraOn] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
 
@@ -45,21 +46,38 @@ export default function NovoAlunoPage() {
   }
 
   // --- FUNÇÃO PARA LIGAR A LOGITECH C270 ---
+  function stopCamera() {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    setCameraOn(false);
+  }
+
   async function startCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: 1280, height: 720 },
       });
 
+      streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.play();
+        await videoRef.current.play();
       }
+      setCapturedImage(null);
       setCameraOn(true);
     } catch (error) {
       alert("Erro ao acessar a Logitech C270. Verifique a conexão.");
       console.error(error);
     }
+  }
+
+  function clearPhoto() {
+    setCapturedImage(null);
   }
 
   // --- CAPTURAR FOTO (Para registro visual) ---
@@ -73,6 +91,7 @@ export default function NovoAlunoPage() {
 
       const base64 = canvas.toDataURL("image/jpeg");
       setCapturedImage(base64);
+      stopCamera();
     }
   }
 
@@ -213,9 +232,13 @@ export default function NovoAlunoPage() {
             {/* Foto Facial */}
             <div className="border-2 border-dashed border-gray-200 rounded-2xl p-6">
               <div className="aspect-video bg-gray-900 rounded-xl mb-4 overflow-hidden relative group">
-                {cameraOn ? (
-                  <video ref={videoRef} className="w-full h-full object-cover scale-x-[-1]" autoPlay playsInline />
-                ) : (
+                <video
+                  ref={videoRef}
+                  className={`w-full h-full object-cover scale-x-[-1] ${cameraOn ? "" : "hidden"}`}
+                  autoPlay
+                  playsInline
+                />
+                {!cameraOn && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500">
                     <Camera size={32} className="mb-2 opacity-20" />
                     <p className="text-[10px] font-bold uppercase tracking-tighter opacity-40">Câmera Logitech C270</p>
@@ -233,6 +256,15 @@ export default function NovoAlunoPage() {
               >
                 {cameraOn ? "Bater Foto Agora" : "Ativar Câmera"}
               </button>
+              {capturedImage && (
+                <button
+                  type="button"
+                  onClick={clearPhoto}
+                  className="w-full mt-3 py-3 rounded-xl font-bold text-xs uppercase tracking-widest bg-red-100 text-red-600 hover:bg-red-200 transition-all"
+                >
+                  Apagar Foto
+                </button>
+              )}
             </div>
           </div>
         </div>
