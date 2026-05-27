@@ -143,7 +143,7 @@ export default function NovoAlunoPage() {
         <div>
           <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Novo Aluno</h2>
           <p className="text-gray-400 text-sm font-medium">Registro de informações e biometria</p>
-        </div>
+        </div>  
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
